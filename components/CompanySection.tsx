@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 // Sophisticated Custom SVG Icon Components
 const IconBookOpen = ({ className = '' }) => (
@@ -255,6 +256,22 @@ const AnimatedIllustration = () => (
 );
 
 export default function CompanySection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const storyRef = useRef<HTMLDivElement>(null);
+  const missionRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "-50px" });
+  const introInView = useInView(introRef, { once: true, margin: "-50px" });
+  const storyInView = useInView(storyRef, { once: true, margin: "-50px" });
+  const missionInView = useInView(missionRef, { once: true, margin: "-50px" });
+  const featuresInView = useInView(featuresRef, { once: true, margin: "-50px" });
+  const statsInView = useInView(statsRef, { once: true, margin: "-50px" });
+
   const statsData = [
     { icon: IconBuilding2, number: '500+', label: 'Businesses Served' },
     { icon: IconUsers, number: '5,000+', label: 'Candidates on Platform' },
@@ -288,17 +305,27 @@ export default function CompanySection() {
   ];
 
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       className="relative py-8 md:py-12 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, white 0%, var(--primary-50) 100%)' }}
       id="about-moil"
+      initial={{ opacity: 0 }}
+      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.6 }}
     >
       <AnimatedIllustration />
 
       <div className="relative z-10 container mx-auto px-6">
-        <div className="max-w-7xl mx-auto animate-fade-in">
+        <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-8 animate-slide-up">
+          <motion.div 
+            ref={headerRef}
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-primary-200 px-6 py-3 rounded-full mb-8 shadow-sm">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-semibold text-primary-700 uppercase tracking-wider">
@@ -315,26 +342,36 @@ export default function CompanySection() {
             <p className="text-2xl md:text-3xl font-light text-muted max-w-4xl mx-auto leading-relaxed">
               Your Partner in Data-Driven Growth
             </p>
-          </div>
+          </motion.div>
 
           {/* Company Introduction */}
-          <div className="mb-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
+          <motion.div 
+            ref={introRef}
+            className="mb-8"
+            initial={{ opacity: 0, y: 40 }}
+            animate={introInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             <div className="bg-white/60 backdrop-blur-sm rounded-3xl px-8 pt-0 pb-6 md:px-12 md:pt-0 md:pb-12 border border-white/50 shadow-xl">
               <p className="text-xl md:text-2xl leading-relaxed text-center max-w-5xl mx-auto text-navy font-light">
                 <strong className="font-bold text-navy">Andres F. Urrego</strong> is the solo Founder and CEO of{' '}
                 <strong className="font-bold text-accent">Moil</strong>, an AI-powered platform transforming how small businesses and job seekers connect, grow, and thrive. A serial entrepreneur, business coach, and consultant, Andres has supported more than 100 businesses in launching, saving money, and scaling—while also contributing to the entrepreneurial ecosystem in Buda, Texas.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Story & Mission Section */}
           <div className="grid lg:grid-cols-2 gap-12 mb-8">
             {/* Story */}
-            <div
-              className="group animate-slide-up"
-              style={{ animationDelay: '200ms' }}
+            <motion.div
+              ref={storyRef}
+              className="group"
+              initial={{ opacity: 0, x: -50 }}
+              animate={storyInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              whileHover={{ y: -8 }}
             >
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
+              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center">
                     <IconBookOpen className="w-8 h-8" />
@@ -345,13 +382,17 @@ export default function CompanySection() {
                   With over a decade of success in sales and leadership, Andres bootstrapped Moil in 2023. By 2025, the platform served <strong className="text-accent font-semibold">over 5,000 candidates and 500 businesses</strong>. Instead of marketing, he partnered with nonprofits to <strong className="text-accent font-semibold">educate over 4,000 people at no cost</strong>, focusing on tech and future-of-work skills.
                 </p>
               </div>
-            </div>
+            </motion.div>
             {/* Mission */}
-            <div
-              className="group animate-slide-up"
-              style={{ animationDelay: '300ms' }}
+            <motion.div
+              ref={missionRef}
+              className="group"
+              initial={{ opacity: 0, x: 50 }}
+              animate={missionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              whileHover={{ y: -8 }}
             >
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
+              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                     <IconTarget className="w-8 h-8" />
@@ -362,13 +403,16 @@ export default function CompanySection() {
                   Making AI work for people first—empowering entrepreneurs, SMBs, and workers by removing barriers of language, education, and technology. We're sponsoring Pfest to invest in the communities we serve, from Austin to San Antonio.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Features Section */}
-          <div
-            className="my-16 animate-slide-up"
-            style={{ animationDelay: '400ms' }}
+          <motion.div
+            ref={featuresRef}
+            className="my-16"
+            initial={{ opacity: 0, y: 50 }}
+            animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
           >
             <div className="text-center mb-8">
               <h3 className="text-4xl md:text-5xl font-bold text-navy mb-4">The Moil Difference</h3>
@@ -378,9 +422,23 @@ export default function CompanySection() {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               {features.map((feature, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="group bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                  className="group bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={featuresInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 1.2 + (index * 0.1),
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20
+                  }}
+                  whileHover={{ 
+                    y: -8,
+                    scale: 1.02,
+                    boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+                  }}
                 >
                   <div className="flex items-start gap-6">
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
@@ -393,10 +451,10 @@ export default function CompanySection() {
                       <p className="text-lg text-muted leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Quote Section */}
           <div
@@ -422,16 +480,35 @@ export default function CompanySection() {
           </div>
 
           {/* Stats Section */}
-          <div className="animate-slide-up" style={{ animationDelay: '600ms' }}>
+          <motion.div 
+            ref={statsRef}
+            initial={{ opacity: 0, y: 50 }}
+            animate={statsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 1.6 }}
+          >
             <div className="text-center mb-16">
               <h3 className="text-4xl md:text-5xl font-bold text-navy mb-4">Our Progress So Far</h3>
               <p className="text-xl text-muted">Measurable impact across communities</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               {statsData.map((stat, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="group bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 hover:scale-105"
+                  className="group bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+                  initial={{ opacity: 0, y: 30, scale: 0.8 }}
+                  animate={statsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.8 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 1.8 + (index * 0.1),
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20
+                  }}
+                  whileHover={{ 
+                    y: -12,
+                    scale: 1.05,
+                    boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+                  }}
                 >
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center mx-auto mb-6 transition-transform duration-300 group-hover:scale-110">
                     <stat.icon className="w-9 h-9 text-primary group-hover:text-accent transition-colors duration-300" />
@@ -442,10 +519,10 @@ export default function CompanySection() {
                   <div className="text-sm font-semibold uppercase tracking-wider text-muted leading-tight">
                     {stat.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -491,6 +568,6 @@ export default function CompanySection() {
           to { stroke-dashoffset: 1000; }
         }
       `}</style>
-    </section>
+    </motion.section>
   );
 }

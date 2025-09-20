@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const AnimatedIllustration = () => (
   <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
@@ -36,14 +37,35 @@ const AnimatedIllustration = () => (
 );
 
 export default function FeaturedSpeaker() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "-50px" });
+  const cardInView = useInView(cardRef, { once: true, margin: "-50px" });
+
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-br from-white to-orange-100 overflow-hidden" id="speaker">
+    <motion.section 
+      ref={sectionRef}
+      className="relative py-24 md:py-32 bg-gradient-to-br from-white to-orange-100 overflow-hidden" 
+      id="speaker"
+      initial={{ opacity: 0 }}
+      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <AnimatedIllustration />
 
       <div className="relative z-10 container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <motion.div 
+            ref={headerRef}
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-orange-200/80 px-5 py-2 rounded-full mb-6 shadow-sm">
               <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-semibold tracking-wider uppercase text-accent-600">
@@ -56,10 +78,26 @@ export default function FeaturedSpeaker() {
                 Speaker
               </span>
             </h2>
-          </div>
+          </motion.div>
 
           {/* Speaker Card */}
-          <div className="bg-white/70 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-xl border border-white/50 transition-all duration-300 hover:shadow-2xl hover:border-white">
+          <motion.div 
+            ref={cardRef}
+            className="bg-white/70 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-xl border border-white/50 transition-all duration-300 hover:shadow-2xl hover:border-white"
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={cardInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
+            transition={{ 
+              duration: 0.8, 
+              delay: 0.4,
+              type: "spring",
+              stiffness: 200,
+              damping: 20
+            }}
+            whileHover={{ 
+              y: -8,
+              boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+            }}
+          >
             <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
               {/* Avatar */}
               <div className="flex justify-center md:justify-start transition-transform duration-300 hover:scale-105">
@@ -103,9 +141,9 @@ export default function FeaturedSpeaker() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

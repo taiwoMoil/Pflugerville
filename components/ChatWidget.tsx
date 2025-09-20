@@ -28,7 +28,18 @@ const initialMessage: Message = {
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
+  const [showButton, setShowButton] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
+
+  // Show button after a short delay when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowButton(true);
+    }, 1000); // Show after 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -48,7 +59,7 @@ export default function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div ref={buttonRef} className="fixed bottom-5 right-5 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -56,7 +67,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="w-[calc(100vw-2.5rem)] max-w-md h-[70vh] max-h-[600px] flex flex-col rounded-2xl bg-white/70 backdrop-blur-xl border border-white/50 shadow-2xl overflow-hidden origin-bottom-right"
+            className="absolute bottom-20 right-0 w-[calc(100vw-2.5rem)] max-w-md h-[70vh] max-h-[600px] flex flex-col rounded-2xl bg-white/70 backdrop-blur-xl border border-white/50 shadow-2xl overflow-hidden origin-bottom-right"
           >
             {/* Header */}
             <div className="bg-primary-gradient p-4 text-white flex justify-between items-center shrink-0">
@@ -116,6 +127,20 @@ export default function ChatWidget() {
         className="w-16 h-16 rounded-full bg-primary-gradient shadow-lg flex items-center justify-center text-white text-2xl shadow-primary/40 hover:shadow-xl hover:shadow-primary/50 transition-all transform hover:-translate-y-1"
         aria-label="Toggle chat widget"
         whileTap={{ scale: 0.9 }}
+        initial={{ scale: 0, rotate: -180 }}
+        animate={showButton ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+        transition={{ 
+          duration: 0.6, 
+          ease: "easeOut",
+          delay: 0.5,
+          type: "spring",
+          stiffness: 200,
+          damping: 20
+        }}
+        whileHover={{ 
+          scale: 1.1,
+          boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
+        }}
       >
         <AnimatePresence mode="wait">
           <motion.div

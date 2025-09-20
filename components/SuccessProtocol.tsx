@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const AnimatedIllustration = () => (
   <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
@@ -46,47 +47,94 @@ const steps = [
 ];
 
 export default function SuccessProtocol() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
+
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "-50px" });
+  const stepsInView = useInView(stepsRef, { once: true, margin: "-50px" });
+
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-br from-white to-primary-100 overflow-hidden" id="protocol">
+    <motion.section 
+      ref={sectionRef}
+      className="relative py-24 md:py-32 bg-gradient-to-br from-white to-primary-100 overflow-hidden" 
+      id="protocol"
+      initial={{ opacity: 0 }}
+      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <AnimatedIllustration />
       <div className="relative z-10 container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
-            Your Guaranteed Success Protocol
-          </h2>
-          <p className="text-lg md:text-xl text-primary-700 mb-8 max-w-3xl mx-auto">
-            <strong>For $50 Pfest Pricing:</strong> Complete your business profile and first market insights session within <strong>24 hours</strong> of account creation to secure your $425 discount.
-          </p>
-
-          <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 md:p-8 mb-12 border border-white/70 shadow-lg max-w-3xl mx-auto">
-            <h3 className="text-xl font-bold text-primary-900 mb-2">Why 24 Hours?</h3>
-            <p className="text-gray-700 leading-relaxed">
-              Our data shows that entrepreneurs who complete their setup within the first day have a <strong>94% higher success rate</strong> and see actionable insights immediately. This isn't just a discount condition—it's our proven method for ensuring you get maximum value from day one.
+          <motion.div
+            ref={headerRef}
+            initial={{ opacity: 0, y: 50 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
+              Your Guaranteed Success Protocol
+            </h2>
+            <p className="text-lg md:text-xl text-primary-700 mb-8 max-w-3xl mx-auto">
+              <strong>For $50 Pfest Pricing:</strong> Complete your business profile and first market insights session within <strong>24 hours</strong> of account creation to secure your $425 discount.
             </p>
-          </div>
 
-          <h3 className="text-2xl font-bold text-gray-800 mb-8">What You'll Complete in Under 25 Minutes:</h3>
+            <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 md:p-8 mb-12 border border-white/70 shadow-lg max-w-3xl mx-auto">
+              <h3 className="text-xl font-bold text-primary-900 mb-2">Why 24 Hours?</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Our data shows that entrepreneurs who complete their setup within the first day have a <strong>94% higher success rate</strong> and see actionable insights immediately. This isn't just a discount condition—it's our proven method for ensuring you get maximum value from day one.
+              </p>
+            </div>
+
+            <h3 className="text-2xl font-bold text-gray-800 mb-8">What You'll Complete in Under 25 Minutes:</h3>
+          </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <motion.div 
+            ref={stepsRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+            initial={{ opacity: 0, y: 40 }}
+            animate={stepsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             {steps.map((step, index) => (
-              <div 
+              <motion.div 
                 key={index} 
-                className="bg-white/60 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/60 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="bg-white/60 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/60 shadow-md hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={stepsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.9 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.6 + (index * 0.1),
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20
+                }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+                }}
               >
                 <div className="bg-primary-500 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   {step.icon}
                 </div>
                 <h4 className="font-bold text-primary-900 mb-1">{step.title}</h4>
                 <p className="text-sm text-primary-700 font-medium">{step.time}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <p className="text-base text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <motion.p 
+            className="text-base text-gray-600 leading-relaxed max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={stepsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+          >
             Can't complete in 24 hours? No problem—you'll still have access to all features, just at regular pricing. We believe our platform is worth every penny, but we want to reward entrepreneurs who dive in immediately.
-          </p>
+          </motion.p>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

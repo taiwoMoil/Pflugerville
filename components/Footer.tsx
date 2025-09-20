@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const FooterIllustration = () => (
   <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
@@ -28,10 +29,28 @@ const FooterIllustration = () => (
 );
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const footerInView = useInView(footerRef, { once: true, margin: "-100px" });
+  const contentInView = useInView(contentRef, { once: true, margin: "-50px" });
+
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-white to-primary-100">
+    <motion.footer 
+      ref={footerRef}
+      className="relative overflow-hidden bg-gradient-to-br from-white to-primary-100"
+      initial={{ opacity: 0 }}
+      animate={footerInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <FooterIllustration />
-      <div className="relative z-10 container mx-auto px-6 py-16">
+      <motion.div 
+        ref={contentRef}
+        className="relative z-10 container mx-auto px-6 py-16"
+        initial={{ opacity: 0, y: 50 }}
+        animate={contentInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
           {/* Brand Partnership */}
           <div>
@@ -85,7 +104,7 @@ export default function Footer() {
             <a href="#" className="text-accent hover:underline">Contact Support</a>
           </p>
         </div>
-      </div>
-    </footer>
+      </motion.div>
+    </motion.footer>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 // Animated Grid Background Component
 interface Dot {
@@ -233,11 +234,28 @@ function Countdown() {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const countdownRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-200px" });
+  const brandInView = useInView(brandRef, { once: true, margin: "-100px" });
+  const titleInView = useInView(titleRef, { once: true, margin: "-100px" });
+  const subtitleInView = useInView(subtitleRef, { once: true, margin: "-100px" });
+  const countdownInView = useInView(countdownRef, { once: true, margin: "-100px" });
+  const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       className="relative min-h-screen flex items-center py-8 justify-center overflow-hidden"
       style={{ background: '#5843BD' }}
+      initial={{ opacity: 0 }}
+      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.8 }}
     >
       {/* Animated Grid Background */}
       <AnimatedGridBackground />
@@ -248,7 +266,13 @@ export default function Hero() {
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-5xl mx-auto">
           {/* Brand Partnership */}
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-8">
+          <motion.div 
+            ref={brandRef}
+            className="flex flex-wrap items-center justify-center gap-6 mb-8"
+            initial={{ opacity: 0, y: -50 }}
+            animate={brandInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <div
               className="px-4 py-2 rounded-xl font-semibold text-xs tracking-wide backdrop-blur-lg border transition-all duration-300 hover:scale-105 hover:shadow-lg"
               style={{
@@ -282,29 +306,52 @@ export default function Hero() {
             >
               <span className="text-white">Sept 29 – Oct 3</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl text-[#fff] font-extrabold mb-6 leading-tight">
+          <motion.h1 
+            ref={titleRef}
+            className="text-3xl md:text-4xl lg:text-5xl text-[#fff] font-extrabold mb-6 leading-tight"
+            initial={{ opacity: 0, y: 50 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Unlock Growth with Moil Business Insights at Pflugerville Venture Pfest
-          </h1>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p className="text-lg text-white/90 mb-6 max-w-4xl mx-auto leading-relaxed">
+          <motion.p 
+            ref={subtitleRef}
+            className="text-lg text-white/90 mb-6 max-w-4xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 30 }}
+            animate={subtitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             First <span className="font-bold" style={{ color: '#FF6633' }}>50 attendees</span> get free access.
             Everyone else pays <span className="font-bold" style={{ color: '#FF6633' }}>$50</span>
             <span className="text-white/70"> (regularly </span>
             <span className="line-through text-white/50">$375</span>
             <span className="text-white/70">)</span>
-          </p>
+          </motion.p>
 
           {/* Countdown */}
-          <div>
+          <motion.div
+            ref={countdownRef}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={countdownInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
             <Countdown />
-          </div>
+          </motion.div>
 
           {/* CTA Button */}
-          <div className="mt-12 flex flex-col items-center gap-6">
+          <motion.div 
+            ref={ctaRef}
+            className="mt-12 flex flex-col items-center gap-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+          >
             {/* Main CTA Button */}
             <div className="relative group">
               {/* Background Glow */}
@@ -422,7 +469,7 @@ export default function Hero() {
                 <span>✓ Networking opportunities</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Floating Elements */}
           <div className="absolute top-20 right-20 hidden lg:block animate-bounce">
@@ -439,6 +486,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

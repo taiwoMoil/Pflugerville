@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const AnimatedIllustration = () => (
   <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
@@ -65,30 +66,96 @@ const CheckIcon = () => (
 );
 
 export default function PricingSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "-50px" });
+  const badgeInView = useInView(badgeRef, { once: true, margin: "-50px" });
+  const titleInView = useInView(titleRef, { once: true, margin: "-50px" });
+  const descInView = useInView(descRef, { once: true, margin: "-50px" });
+  const cardsInView = useInView(cardsRef, { once: true, margin: "-50px" });
+
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-br from-white to-orange-100 overflow-hidden" id="pricing">
+    <motion.section 
+      ref={sectionRef}
+      className="relative py-24 md:py-32 bg-gradient-to-br from-white to-orange-100 overflow-hidden" 
+      id="pricing"
+      initial={{ opacity: 0 }}
+      animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       <AnimatedIllustration />
       <div className="relative z-10 container mx-auto px-6">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-orange-200/80 px-5 py-2 rounded-full mb-6 shadow-sm">
+        <motion.div 
+          ref={headerRef}
+          className="max-w-4xl mx-auto text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <motion.div 
+            ref={badgeRef}
+            className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm border border-orange-200/80 px-5 py-2 rounded-full mb-6 shadow-sm"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={badgeInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
             <span className="text-sm font-semibold tracking-wider uppercase text-accent-600">
               Special Pricing
             </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
+          </motion.div>
+          <motion.h2 
+            ref={titleRef}
+            className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900"
+            initial={{ opacity: 0, y: 30 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             Event-Only Pricing
-          </h2>
-          <p className="text-lg md:text-xl text-accent-800 max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            ref={descRef}
+            className="text-lg md:text-xl text-accent-800 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={descInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             Exclusive pricing tiers designed specifically for Pflugerville Venture Pfest attendees.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {pricingTiers.map((tier) => (
-            <div 
+        <motion.div 
+          ref={cardsRef}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={cardsInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          {pricingTiers.map((tier, index) => (
+            <motion.div 
               key={tier.name}
-              className={`bg-white/70 backdrop-blur-lg rounded-3xl p-8 border transition-all duration-300 flex flex-col ${tier.isPopular ? 'shadow-2xl -translate-y-4 border-accent-300' : 'shadow-lg border-white/50 hover:shadow-xl'}`}>
+              className={`bg-white/70 backdrop-blur-lg rounded-3xl p-8 border transition-all duration-300 flex flex-col ${tier.isPopular ? 'shadow-2xl -translate-y-4 border-accent-300' : 'shadow-lg border-white/50 hover:shadow-xl'}`}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              animate={cardsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: 0.7 + (index * 0.1),
+                type: "spring",
+                stiffness: 200,
+                damping: 20
+              }}
+              whileHover={{ 
+                scale: 1.02,
+                y: -5,
+                boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
+              }}
+            >
               {tier.isPopular && (
                 <div className="absolute top-0 right-8 -mt-4">
                   <span className="bg-accent text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Most Popular</span>
@@ -101,22 +168,35 @@ export default function PricingSection() {
               <p className="text-gray-500 line-through mb-6 h-6">{tier.name !== 'Enterprise' && tier.originalPrice}</p>
               
               <ul className="space-y-4 mb-8 text-left grow">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
+                {tier.features.map((feature, featureIndex) => (
+                  <motion.li 
+                    key={feature} 
+                    className="flex items-center gap-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={cardsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: 0.8 + (index * 0.1) + (featureIndex * 0.1)
+                    }}
+                  >
                     <CheckIcon />
                     <span className="text-gray-700">{feature}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
 
-              <button className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}>
+              <motion.button 
+                className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
                 <span className="relative z-10">{tier.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}</span>
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
