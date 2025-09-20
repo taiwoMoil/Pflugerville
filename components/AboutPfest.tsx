@@ -102,7 +102,7 @@ export default function AboutPfest() {
           {/* CTA Button */}
           <motion.a
             ref={ctaRef}
-            href="https://pflugervillepfest.com"
+            href="https://pflugervilleventurefest.com/etn/day-1-marketing-that-moves/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-[#5843BD] text-white font-bold px-8 py-4 rounded-full shadow-primary transition-all duration-300 hover:shadow-xl hover:-translate-y-1 transform-gpu"
