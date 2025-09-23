@@ -6,30 +6,30 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Root-Cause Nutrition for Fatigue & Gut Health | Empowered Nutrition with Inna',
-    template: '%s | Empowered Nutrition with Inna'
+    default: 'Pflugerville Events & Community | Premium Event Management',
+    template: '%s | Pflugerville Events'
   },
-  description: 'Transform your health with functional testing and personalized nutrition. Specialized care for women 30-55 experiencing fatigue, anxiety, gut issues, and perimenopause symptoms.',
+  description: 'Discover premium events, conferences, and community gatherings in Pflugerville. Join our exclusive events featuring world-class speakers, networking opportunities, and transformative experiences.',
   keywords: [
-    'functional nutrition',
-    'gut health specialist',
-    'chronic fatigue treatment',
-    'functional medicine testing',
-    'GI-MAP testing',
-    'DUTCH hormone testing',
-    'digestive health',
-    'women\'s health nutrition',
-    'perimenopause support',
-    'anxiety nutrition therapy',
-    'brain fog treatment',
-    'IBS functional nutrition'
+    'Pflugerville events',
+    'premium conferences',
+    'community gatherings',
+    'event management',
+    'networking events',
+    'professional development',
+    'business conferences',
+    'keynote speakers',
+    'corporate events',
+    'event planning',
+    'Pflugerville community',
+    'Texas events'
   ],
-  authors: [{ name: 'Inna Topiler', url: 'https://empowerednutritionwithinna.com' }],
-  creator: 'Empowered Nutrition with Inna',
-  publisher: 'Empowered Nutrition with Inna',
-  metadataBase: new URL('https://empowerednutritionwithinna.com'),
+  authors: [{ name: 'Pflugerville Events Team', url: 'https://pflugervilleventurefest.com' }],
+  creator: 'Pflugerville Events',
+  publisher: 'Pflugerville Events',
+  metadataBase: new URL('https://pflugervilleventurefest.com'),
   alternates: {
-    canonical: 'https://empowerednutritionwithinna.com',
+    canonical: 'https://pflugervilleventurefest.com',
   },
   formatDetection: {
     email: false,
@@ -37,16 +37,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'Root-Cause Nutrition for Fatigue & Gut Health | Empowered Nutrition with Inna',
-    description: 'Functional testing + personalized nutrition for women seeking energy, clarity, and relief from chronic symptoms',
-    url: 'https://empowerednutritionwithinna.com',
-    siteName: 'Empowered Nutrition with Inna',
+    title: 'Pflugerville Events & Community | Premium Event Management',
+    description: 'Join exclusive events featuring world-class speakers, networking opportunities, and transformative experiences in Pflugerville.',
+    url: 'https://pflugervilleventurefest.com',
+    siteName: 'Pflugerville Events',
     images: [
       {
-        url: '/inna.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Inna Topiler, Functional Nutritionist specializing in gut health and women\'s wellness',
+        alt: 'Pflugerville Events - Premium conferences and community gatherings',
       },
     ],
     locale: 'en_US',
@@ -54,10 +54,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Root-Cause Nutrition for Fatigue & Gut Health',
-    description: 'Functional testing + personalized nutrition for women seeking energy and gut health.',
-    images: ['/inna.jpg'],
-    creator: '@InnaTopiler',
+    title: 'Pflugerville Events & Community',
+    description: 'Premium events, conferences, and community gatherings featuring world-class speakers.',
+    images: ['/og-image.jpg'],
+    creator: '@PflugervilleEvents',
   },
   robots: {
     index: true,
@@ -77,11 +77,11 @@ export const metadata: Metadata = {
     yandex: 'your-yandex-verification',
   },
   category: 'business',
-  classification: 'Functional Nutrition and Health Services',
+  classification: 'Event Management and Community Services',
   other: {
-    'practice.type': 'Functional Nutrition',
-    'specialization': 'Women\'s Health, Gut Health, Hormone Balance',
-    'certification': 'FDN-P Certified',
+    'business.type': 'Event Management',
+    'specialization': 'Premium Conferences, Corporate Events, Community Gatherings',
+    'location': 'Pflugerville, Texas',
   },
 };
 
