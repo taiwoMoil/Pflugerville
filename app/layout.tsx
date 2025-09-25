@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     'Pflugerville community',
     'Texas events'
   ],
-  authors: [{ name: 'Pflugerville Events Team', url: 'https://pflugervilleventurefest.com' }],
-  creator: 'Pflugerville Events',
-  publisher: 'Pflugerville Events',
+  authors: [{ name: 'Moil Team', url: 'https://pflugervilleventurefest.com' }],
+  creator: 'Moil',
+  publisher: 'Moil',
   metadataBase: new URL('https://pflugervilleventurefest.com'),
   alternates: {
     canonical: 'https://pflugervilleventurefest.com',
@@ -93,7 +93,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />

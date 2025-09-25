@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import ContactModal from './ContactModal';
 import { motion, useInView } from 'framer-motion';
 
 const AnimatedIllustration = () => (
@@ -79,6 +80,7 @@ export default function PricingSection() {
   const titleInView = useInView(titleRef, { once: true, margin: "-50px" });
   const descInView = useInView(descRef, { once: true, margin: "-50px" });
   const cardsInView = useInView(cardsRef, { once: true, margin: "-50px" });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <motion.section 
@@ -185,18 +187,33 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-              <motion.button 
-                className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                <span className="relative z-10">{tier.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}</span>
-              </motion.button>
+                            {tier.name === 'Enterprise' ? (
+                <motion.button 
+                  onClick={() => setIsModalOpen(true)}
+                  className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  <span className="relative z-10">Contact Us</span>
+                </motion.button>
+              ) : (
+                <a href="https://employer-beta.moilapp.com?ref=pflug135EV@AJAST" target="_blank" rel="noopener noreferrer" className="block w-full">
+                  <motion.button 
+                    className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    <span className="relative z-10">Get Started</span>
+                  </motion.button>
+                </a>
+              )}
             </motion.div>
           ))}
         </motion.div>
       </div>
+          <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </motion.section>
   );
 }
