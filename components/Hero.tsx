@@ -242,7 +242,7 @@ export default function Hero() {
   const ctaRef = useRef<HTMLDivElement>(null);
 
   const sectionInView = useInView(sectionRef, { once: true, margin: "-200px" });
-  const brandInView = useInView(brandRef, { once: true, margin: "-100px" });
+  const brandInView = useInView(brandRef, { once: true, margin: "0px" });
   const titleInView = useInView(titleRef, { once: true, margin: "-100px" });
   const subtitleInView = useInView(subtitleRef, { once: true, margin: "-100px" });
   const countdownInView = useInView(countdownRef, { once: true, margin: "-100px" });
@@ -268,43 +268,46 @@ export default function Hero() {
           {/* Brand Partnership */}
           <motion.div 
             ref={brandRef}
-            className="flex flex-wrap items-center justify-center gap-6 mb-8"
-            initial={{ opacity: 0, y: -50 }}
-            animate={brandInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-8"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div
-              className="px-4 py-2 rounded-xl font-semibold text-xs tracking-wide backdrop-blur-lg border transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className="px-3 py-2 md:px-4 md:py-2 rounded-xl font-semibold text-xs tracking-wide backdrop-blur-lg border transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md"
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderColor: 'rgba(255, 255, 255, 0.2)'
+                background: 'rgba(255, 255, 255, 0.15)',
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
               }}
             >
-              <span className="text-white">MOIL BUSINESS INSIGHTS</span>
+              <span className="text-white font-bold">MOIL BUSINESS INSIGHTS</span>
             </div>
             <span
-              className="text-2xl font-bold animate-pulse"
+              className="text-xl md:text-2xl font-bold animate-pulse"
               style={{ color: '#FF6633' }}
             >
               ×
             </span>
             <div
-              className="px-6 py-3 rounded-xl font-semibold text-sm tracking-wide backdrop-blur-lg border transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderColor: 'rgba(255, 255, 255, 0.2)'
-              }}
-            >
-              <span className="text-white">PFLUGERVILLE VENTURE PFEST</span>
-            </div>
-            <div
-              className="px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-lg border transition-all duration-300 hover:scale-105"
+              className="px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-xs md:text-sm tracking-wide backdrop-blur-lg border transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md"
               style={{
                 background: 'rgba(255, 255, 255, 0.15)',
-                borderColor: 'rgba(255, 255, 255, 0.2)'
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
               }}
             >
-              <span className="text-white">Day 3 - Oct 3</span>
+              <span className="text-white font-bold">PFLUGERVILLE VENTURE PFEST</span>
+            </div>
+            <div
+              className="px-3 py-2 md:px-4 md:py-2 rounded-full text-xs font-semibold backdrop-blur-lg border transition-all duration-300 hover:scale-105 shadow-md"
+              style={{
+                background: 'rgba(255, 102, 51, 0.2)',
+                borderColor: 'rgba(255, 102, 51, 0.4)',
+                boxShadow: '0 4px 15px rgba(255, 102, 51, 0.2)'
+              }}
+            >
+              <span className="text-white font-bold">Day 3 - Oct 3</span>
             </div>
           </motion.div>
 
