@@ -276,7 +276,7 @@ export default function CompanySection() {
     { icon: IconBuilding2, number: '500+', label: 'Businesses Served' },
     { icon: IconUsers, number: '5,000+', label: 'Candidates on Platform' },
     { icon: IconPresentation, number: '100+', label: 'Businesses Coached' },
-    { icon: IconGraduationCap, number: '4,000+', label: 'People Educated' },
+    { icon: IconGraduationCap, number: '4,000+', label: 'people educated at no cost' },
     { icon: IconHandshake, number: 'Multi-State', label: 'EDC Partnerships' },
     { icon: IconRocket, number: '2023', label: 'Founding Year' }
   ];

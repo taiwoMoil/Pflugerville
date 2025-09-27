@@ -99,12 +99,21 @@ export default function FeaturedSpeaker() {
             }}
           >
             <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
-              {/* Avatar */}
+              {/* Video */}
               <div className="flex justify-center md:justify-start transition-transform duration-300 hover:scale-105">
                 <div className="relative">
                   <div className="absolute -inset-2 bg-gradient-to-br from-accent to-amber-400 rounded-full blur-lg opacity-60 animate-pulse" />
-                  <div className="w-40 h-40 md:w-48 md:h-48 rounded-full flex items-center justify-center text-white text-5xl font-bold relative z-10 bg-gradient-to-br from-accent-500 to-amber-600 shadow-lg border-4 border-white/80">
-                    AU
+                  <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden relative z-10 shadow-lg border-4 border-white/80">
+                    <video 
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src="/Andres.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
               </div>
@@ -120,7 +129,8 @@ export default function FeaturedSpeaker() {
                 
                 <div className="bg-orange-50/50 rounded-2xl p-4 mb-6 border border-orange-100/80">
                   <p className="font-semibold text-gray-700">
-                    <strong>Session:</strong> "AI-Powered Growth: Building Tools That Bridge Gaps and Expand Opportunity"
+                    <strong>Day 3 Session:</strong> "Blueprints for Success: AI-Powered Business Plans & SEO for Growth"<br/>
+                    <span className="text-sm text-gray-600">12:00 PM – 12:35 PM + 10 min Questions</span>
                   </p>
                 </div>
 

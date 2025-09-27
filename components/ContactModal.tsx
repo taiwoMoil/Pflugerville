@@ -10,7 +10,9 @@ interface ContactModalProps {
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [name, setName] = useState('');
-    const [message, setMessage] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
@@ -23,7 +25,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, message }),
+        body: JSON.stringify({ name, companyName, email, phoneNumber }),
       });
 
       const data = await response.json();
@@ -35,7 +37,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       setStatus('success');
       setFeedbackMessage('Your message has been sent successfully!');
       setName('');
-            setMessage('');
+      setCompanyName('');
+      setEmail('');
+      setPhoneNumber('');
       setTimeout(() => onClose(), 2000); // Close modal after 2 seconds on success
     } catch (error: any) {
       setStatus('error');
@@ -77,16 +81,38 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
                   />
                 </div>
-                                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                  <textarea
-                    id="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                <div>
+                  <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
                     required
-                    rows={4}
                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
-                  ></textarea>
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    required
+                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-accent focus:border-accent"
+                  />
                 </div>
                 <div className="flex items-center justify-between pt-2">
                   <button

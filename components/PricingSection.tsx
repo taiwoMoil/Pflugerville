@@ -38,25 +38,27 @@ const AnimatedIllustration = () => (
 
 const pricingTiers = [
   {
-    name: 'Standard',
-    price: '$50',
-    originalPrice: '$475',
-    features: ['Full Platform Access', 'AI-Powered Market Insights', 'Competitor Analysis'],
-    isPopular: false,
-  },
-  {
-    name: 'Pro',
-    price: '$150',
-    originalPrice: '$1,275',
-    features: ['Everything in Standard', 'Advanced AI Analytics', '1-on-1 Onboarding Session'],
+    name: 'First 50',
+    price: '$0',
+    originalPrice: 'FREE',
+    features: ['Full Access to Moil for 3 months', 'Up to 3 job posts per month for 3 Months', 'Complete Market Research', 'Competitor Analysis', '1 Click Business Plan Download'],
     isPopular: true,
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    originalPrice: "Let's Talk",
-    features: ['Everything in Pro', 'Dedicated Account Manager', 'Custom Integrations'],
+    name: '51-150',
+    price: '$50',
+    originalPrice: '$375 ($325 discount)',
+    features: ['Up to 3 job posts per month for 3 Months', 'Complete Market Research', 'Competitor Analysis', '1 Click Business Plan Download'],
     isPopular: false,
+  },
+  {
+    name: 'PFEST SPECIAL',
+    price: '$500',
+    originalPrice: '$1500 Value! Just $500 - 10 Businesses only',
+    features: ['Hiring', 'Market Research', 'SEO Research Backed converting Landing Page with Conversion bot', '$500 - 1 Week turnaround'],
+    isPopular: false,
+    badge: 'PFEST ONLY SPECIAL',
+    contactRequired: true
   },
 ];
 
@@ -128,7 +130,8 @@ export default function PricingSection() {
             animate={descInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Exclusive pricing tiers designed specifically for Pflugerville Venture Pfest attendees.
+            Exclusive pricing tiers for Day 3 - Growth, Capital & The Future of Innovation.<br/>
+            <span className="text-sm text-gray-600 mt-2 block">4000+ people educated at no cost</span>
           </motion.p>
         </motion.div>
 
@@ -142,7 +145,7 @@ export default function PricingSection() {
           {pricingTiers.map((tier, index) => (
             <motion.div 
               key={tier.name}
-              className={`bg-white/70 backdrop-blur-lg rounded-3xl p-8 border transition-all duration-300 flex flex-col ${tier.isPopular ? 'shadow-2xl -translate-y-4 border-accent-300' : 'shadow-lg border-white/50 hover:shadow-xl'}`}
+              className={`bg-white/70 backdrop-blur-lg rounded-3xl p-8 border transition-all duration-300 flex flex-col relative ${tier.isPopular ? 'shadow-2xl -translate-y-4 border-accent-300' : 'shadow-lg border-white/50 hover:shadow-xl'}`}
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={cardsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
               transition={{ 
@@ -163,11 +166,16 @@ export default function PricingSection() {
                   <span className="bg-accent text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">Most Popular</span>
                 </div>
               )}
+              {tier.badge && (
+                <div className="absolute top-0 left-8 -mt-4">
+                  <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">{tier.badge}</span>
+                </div>
+              )}
               <h3 className="text-2xl font-bold text-gray-800 mb-2">{tier.name}</h3>
               <p className={`text-5xl font-extrabold mb-2 ${tier.name === 'Enterprise' ? 'text-4xl' : ''}`}>
                 <span className="bg-gradient-to-r from-accent to-amber-500 bg-clip-text text-transparent">{tier.price}</span>
               </p>
-              <p className="text-gray-500 line-through mb-6 h-6">{tier.name !== 'Enterprise' && tier.originalPrice}</p>
+              <p className="text-gray-500 mb-6 h-6 text-sm">{tier.originalPrice}</p>
               
               <ul className="space-y-4 mb-8 text-left grow">
                 {tier.features.map((feature, featureIndex) => (
@@ -187,7 +195,7 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-                            {tier.name === 'Enterprise' ? (
+              {tier.contactRequired ? (
                 <motion.button 
                   onClick={() => setIsModalOpen(true)}
                   className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}

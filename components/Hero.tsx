@@ -115,8 +115,8 @@ function Countdown() {
   });
 
   useEffect(() => {
-    // Set the date we're counting down to (Sept 29, 2025)
-    const countDownDate = new Date('Sep 29, 2025 09:00:00').getTime();
+    // Set the date we're counting down to (Oct 3, 2025)
+    const countDownDate = new Date('Oct 3, 2025 12:00:00').getTime();
 
     const timer = setInterval(() => {
       // Get today's date and time
@@ -178,7 +178,7 @@ function Countdown() {
           <h3 className="text-xl font-bold text-white mb-2">
             Pflugerville Venture Pfest 2025
           </h3>
-          <p className="text-sm text-white/60">September 29, 2025 • 9:00 AM</p>
+          <p className="text-sm text-white/60">October 3, 2025 • 12:00 PM</p>
         </div>
 
         {/* Countdown Grid */}
@@ -304,7 +304,7 @@ export default function Hero() {
                 borderColor: 'rgba(255, 255, 255, 0.2)'
               }}
             >
-              <span className="text-white">Sept 29 – Oct 3</span>
+              <span className="text-white">Day 3 - Oct 3</span>
             </div>
           </motion.div>
 
@@ -327,11 +327,8 @@ export default function Hero() {
             animate={subtitleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            First <span className="font-bold" style={{ color: '#FF6633' }}>50 attendees</span> get free access.
-            Everyone else pays <span className="font-bold" style={{ color: '#FF6633' }}>$50</span>
-            <span className="text-white/70"> (regularly </span>
-            <span className="line-through text-white/50">$375</span>
-            <span className="text-white/70">)</span>
+            First <span className="font-bold" style={{ color: '#FF6633' }}>50 attendees</span> get free access.<br/>
+            An extra <span className="font-bold" style={{ color: '#FF6633' }}>100 users</span> get <span className="font-bold" style={{ color: '#FF6633' }}>$325 discount</span>. Pay just <span className="font-bold" style={{ color: '#FF6633' }}>$50</span>, today only!
           </motion.p>
 
           {/* Countdown */}
