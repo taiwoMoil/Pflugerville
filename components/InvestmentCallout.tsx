@@ -75,7 +75,7 @@ export default function InvestmentCallout() {
           >
             <div className="inline-block relative">
               <div className="text-7xl md:text-8xl lg:text-9xl font-black text-primary-500 mb-4 bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-                $66,250+
+                $50,000+
               </div>
               <div className="absolute inset-0 bg-primary-200 rounded-full blur-3xl opacity-40 -z-10" />
             </div>
@@ -98,7 +98,7 @@ export default function InvestmentCallout() {
             animate={descInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            We're not just sponsoring, we're investing. Moil is proud to commit over $66,250 in software value to empower Pflugerville entrepreneurs.
+            We're not just sponsoring, we're investing. Moil is proud to commit over $50,000 in software value to empower Pflugerville entrepreneurs.
           </motion.p>
 
           <motion.div
