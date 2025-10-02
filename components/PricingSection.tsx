@@ -206,7 +206,7 @@ export default function PricingSection() {
                   <span className="relative z-10">Contact Us</span>
                 </motion.button>
               ) : (
-                <a href="https://employer-beta.moilapp.com?ref=pflug135EV@AJAST" target="_blank" rel="noopener noreferrer" className="block w-full">
+                <a href="https://business.moilapp.com?ref=pflug135EV@AJAST" target="_blank" rel="noopener noreferrer" className="block w-full">
                   <motion.button 
                     className={`w-full py-3 px-6 rounded-full font-semibold text-white transition-all duration-300 group relative overflow-hidden shadow-lg ${tier.isPopular ? 'bg-accent-gradient hover:shadow-accent' : 'bg-gray-700 hover:bg-gray-800'}`}
                     whileHover={{ scale: 1.02 }}
